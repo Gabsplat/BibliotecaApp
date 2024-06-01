@@ -8,24 +8,52 @@ import { Pressable } from "react-native";
 export default function Test() {
     return (
         <>
-        <View
-            display="flex"
-            flexDirection="row"
-            alignContent="space-around"
-            justifyContent="center">
-            <Link replace href="/test" asChild>
-            <Button>
-                <Text>Go to test.js</Text>
-            </Button>
-            </Link>
-            <Card 
+            <View
                 display="flex"
-                flexDirection="row"
-                alignContent="center"
-                justifyContent="center">
+                flexDirection="column"
+                alignContent="space-evenly"
+                justifyContent="space-evenly"
+                flexWrap="wrap"
+                height="100%"
+                borderWidth={2}>
+                <Link replace href="/test" asChild>
+                    <Button>
+                        <Text>Go to test.js</Text>
+                    </Button>
+                </Link>
+                <XStack
+                    display="flex"
+                    flexDirection="row"
+                    alignContent="space-evenly"
+                    justifyContent="space-evenly"
+                    flexWrap="wrap"
+                    rowGap={20}
+                >
+                    <CardCategoria category="categoria1" />
+                    <CardCategoria category="categoria2" />
+                    <CardCategoria category="categoria3" />
+                    <CardCategoria category="categoria4" />
+                    <CardCategoria category="categoria5" />
+                    <CardCategoria category="categoria6" />
+                </XStack>
 
-            </Card>
-        </View>
+            </View>
         </>
     );
-  }
+}
+
+function CardCategoria(props) {
+    return (
+        <Card
+            display="flex"
+            flexDirection="column"
+            alignContent="center"
+            alignItems="center"
+            justifyContent="center"
+            width={150}
+            height={165}
+        >
+            <Text>{props.category}</Text>
+        </Card>
+    )
+}
