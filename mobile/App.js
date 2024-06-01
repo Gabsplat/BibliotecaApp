@@ -4,20 +4,20 @@ import { StatusBar } from "expo-status-bar";
 import { Alert, StyleSheet, Text } from "react-native";
 import { TamaguiProvider, View, Button, createTamagui } from "tamagui";
 import { config } from "@tamagui/config/v3";
+import { useFonts } from "expo-font";
 
-// you usually export this from a tamagui.config.ts filesss
+// you usually export this from a tamagui.config.ts files
 const tamaguiConfig = createTamagui(config);
 
 export default function App() {
-  const createTwoButtonAlert = () =>
-    Alert.alert("Alert Title", "My Alert Msg", [
-      {
-        text: "Cancel",
-        onPress: () => console.log("Cancel Pressed"),
-        style: "cancel",
-      },
-      { text: "OK", onPress: () => console.log("OK Pressed") },
-    ]);
+  const [loaded] = useFonts({
+    Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
+    InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
+  });
+
+  if (!loaded) {
+    return null;
+  }
 
   return (
     <TamaguiProvider config={tamaguiConfig}>
