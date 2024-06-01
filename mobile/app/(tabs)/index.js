@@ -40,7 +40,7 @@ export default function Page() {
       </Link>
       <Link replace href="/test" asChild>
         <Button>
-          <Text>Go to user page</Text>
+          <Text>Go to test.js</Text>
         </Button>
       </Link>
       <H3 marginBottom={20} font>
@@ -66,7 +66,7 @@ export default function Page() {
 
 function DemoCard(props) {
   return (
-    <Link replace href="/test" asChild>
+    <Link replace href="/description" asChild>
       <Card elevate size="$4" bordered {...props}>
         <Card.Header padded></Card.Header>
         <Card.Footer padded flexDirection="column">

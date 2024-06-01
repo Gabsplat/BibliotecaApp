@@ -7,29 +7,34 @@ export default function Test() {
       <Link replace href="/" asChild>
         <Button>
           <Text>Go to homepage</Text>
-        </Button>        
+        </Button>
       </Link>
       <Link replace href="/category" asChild>
-          <Button>
-            <Text>Go to category</Text>
-          </Button>
+        <Button>
+          <Text>Go to category</Text>
+        </Button>
+      </Link>
+      <Link replace href="/description" asChild>
+        <Button>
+          <Text>Go to description</Text>
+        </Button>
       </Link>
       <Avatar circular size="$10">
-          <Avatar.Image src="http://picsum.photos/200/300" />
-          <Avatar.Fallback bc="red" />
+        <Avatar.Image src="http://picsum.photos/200/300" />
+        <Avatar.Fallback bc="red" />
       </Avatar>
       <H2 marginTop={20}>Nombre + Apellido</H2>
       <Text marginTop={20} fontSize={20}>Legajo</Text>
       <XStack display="flex"
-          flexDirection="column" 
-          padding={30}  
-          width="100%"
-          >
-            <H6 marginBottom={10} fontWeight={800}>Correo</H6>
-            <Text marginBottom={10}>correoelectronico@gmail.com</Text>
-            <H6 marginBottom={10}>Carrera</H6>
-            <Text marginBottom={10}>Lic. en Informática y desarrollo de software</Text>
-      </XStack>      
+        flexDirection="column"
+        padding={30}
+        width="100%"
+      >
+        <H6 marginBottom={10} fontWeight={800}>Correo</H6>
+        <Text marginBottom={10}>correoelectronico@gmail.com</Text>
+        <H6 marginBottom={10}>Carrera</H6>
+        <Text marginBottom={10}>Lic. en Informática y desarrollo de software</Text>
+      </XStack>
     </View>
   );
 }
