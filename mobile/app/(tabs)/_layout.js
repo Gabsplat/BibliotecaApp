@@ -7,12 +7,14 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Home",
+          href: null,
         }}
       />
       <Tabs.Screen
         name="category"
         options={{
           title: "Category",
+          href: null,
         }}
       />
     </Tabs>

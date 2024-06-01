@@ -2,17 +2,18 @@ var express = require("express");
 var passport = require("passport");
 var LocalStrategy = require("passport-local");
 var crypto = require("crypto");
-var db = require("../db");
+var db = require("../test_db");
 
 var router = express.Router();
 
 // Login verification
 passport.use(
-  new LocalStrategy(function verify(username, password, cb) {
-    db.get(
-      "SELECT * FROM users WHERE username = ?",
-      [username],
-      function (err, row) {
+  new LocalStrategy(function verify(correo, password, cb) {
+    db.query(
+      "SELECT * FROM usuario WHERE correo = ?",
+      [correo],
+      function (err, results) {
+        row = results[0];
         if (err) {
           return cb(err);
         }
@@ -47,7 +48,16 @@ passport.use(
 
 passport.serializeUser(function (user, cb) {
   process.nextTick(function () {
-    cb(null, { id: user.id, username: user.username });
+    console.log(user);
+    cb(null, {
+      id: user.usuario_id,
+      nombre: user.nombre,
+      correo: user.correo,
+      fechaCreacion: user.fecha_creacion,
+      tipoUsuario: user.tipo_usuario,
+      legajo: user.legajo,
+      carrera: user.carrera,
+    });
   });
 });
 
@@ -69,16 +79,16 @@ router.post("/signup", function (req, res, next) {
       if (err) {
         return next(err);
       }
-      db.run(
-        "INSERT INTO users (username, hashed_password, salt) VALUES (?, ?, ?)",
-        [req.body.username, hashedPassword, salt],
+      db.query(
+        "INSERT INTO usuario (correo, hashed_password, salt) VALUES (?, ?, ?)",
+        [req.body.correo, hashedPassword, salt],
         function (err) {
           if (err) {
             return next(err);
           }
           var user = {
             id: this.lastID,
-            username: req.body.username,
+            correo: req.body.correo,
           };
           req.login(user, function (err) {
             if (err) {

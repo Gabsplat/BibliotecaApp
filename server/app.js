@@ -8,13 +8,25 @@ var logger = require("morgan");
 var passport = require("passport");
 var session = require("express-session");
 
-var SQLiteStore = require("connect-sqlite3")(session);
-
 var authRouter = require("./routes/auth");
+var bibliotecaRouter = require("./routes/biblioteca");
+var utilsRouter = require("./routes/utils");
+
+const MySQLStore = require("express-mysql-session")(session);
 
 var app = express();
 
+const options = {
+  host: "localhost",
+  port: 3306,
+  user: "root",
+  password: process.env.DB_PASSWORD,
+  database: "biblioteca",
+};
+
 app.locals.pluralize = require("pluralize");
+
+const sessionStore = new MySQLStore(options);
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -27,12 +39,14 @@ app.use(
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: false,
-    store: new SQLiteStore({ db: "sessions.db", dir: "./var/db" }),
+    store: sessionStore,
   })
 );
 app.use(passport.authenticate("session"));
 
 app.use("/", authRouter);
+app.use("/", utilsRouter);
+app.use("/biblioteca", bibliotecaRouter);
 
 app.get("/", function (req, res, next) {
   res.json({ message: "Hello, World!" });
