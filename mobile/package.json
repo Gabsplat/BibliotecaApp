@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tamagui/config": "^1.94.5",
+    "@tamagui/font-inter": "^1.99.1",
     "@types/react": "~18.2.45",
     "expo": "^51.0.8",
     "expo-constants": "~16.0.1",

@@ -1,9 +1,7 @@
 import {
   View,
   Text,
-  YStack,
   Button,
-  Slider,
   Card,
   XStack,
   Paragraph,
@@ -16,8 +14,6 @@ import {
   H6,
 } from "tamagui";
 import { Link, useRouter } from "expo-router";
-import { Pressable } from "react-native";
-import Constants from "expo-constants";
 import { useEffect, useState } from "react";
 
 const uri = "https://young-bananas-show.loca.lt";
