@@ -10,14 +10,24 @@ import { useFonts } from "expo-font";
 const tamaguiConfig = createTamagui(config);
 
 export default function App() {
-  const [loaded] = useFonts({
+  const [fontsLoaded, fontError] = useFonts({
     Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
     InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
   });
 
-  if (!loaded) {
+  console.log(fontError);
+
+  if (!fontsLoaded && !fontError) {
     return null;
   }
+
+  // useEffect(() => {
+  //   if (loaded) {
+  //     // can hide splash screen here
+  //   }
+  // }, [loaded])
+
+  console.log("Fonts loaded ", fontsLoaded);
 
   return (
     <TamaguiProvider config={tamaguiConfig}>

@@ -45,8 +45,8 @@ export default function Page() {
       <H3 marginBottom={20} font>
         Libros en Posesión
       </H3>
-      <XStack $sm={{ flexDirection: "column" }} space>
-        <DemoCard
+      <XStack $sm={{ flexDirection: "column" }}>
+        <CardLibro
           animation="bouncy"
           width={150}
           height={200}
@@ -55,9 +55,9 @@ export default function Page() {
           pressStyle={{ scale: 0.875 }}
           title="Calculo 1"
           genre="Académico"
-          imageUrl='https://images.cdn3.buscalibre.com/fit-in/360x360/e1/01/e101ea251ffdeb0637fd85b4e3a70e5e.jpg'
+          imageUrl="https://images.cdn3.buscalibre.com/fit-in/360x360/e1/01/e101ea251ffdeb0637fd85b4e3a70e5e.jpg"
         />
-        <DemoCard
+        <CardLibro
           animation="bouncy"
           width={150}
           height={200}
@@ -66,36 +66,41 @@ export default function Page() {
           pressStyle={{ scale: 0.875 }}
           title="PMBOK 7ª Edición"
           genre="Referencia profesional y técnica"
-          imageUrl='https://opmintegral.com/wp-content/uploads/2021/07/PMBOK-7ma.-Edicion.png'
+          imageUrl="https://opmintegral.com/wp-content/uploads/2021/07/PMBOK-7ma.-Edicion.png"
         />
       </XStack>
     </View>
   );
 }
 
-function DemoCard(props) {
+function CardLibro(props) {
   return (
-    <>
-      <Link replace href={`/description?title=${props.title}&link=${props.imageUrl}&genre=${props.genre}`} asChild>
-        <Card elevate size="$4" bordered {...props} style={{ overflow: 'hidden' }}>
-          <Card.Header padded>
-          </Card.Header>
-          <Card.Footer padded flexDirection="column">
-            <H5></H5>
-          </Card.Footer>
+    <Link
+      replace
+      href={`/description?title=${props.title}&link=${props.imageUrl}&genre=${props.genre}`}
+      asChild
+    >
+      <>
+        <Card
+          elevate
+          size="$4"
+          bordered
+          {...props}
+          style={{ overflow: "hidden" }}
+        >
           <Card.Background>
             <Image
               resizeMode="cover"
-              style={{ width: '100%', height: '100%' }}
+              style={{ width: "100%", height: "100%" }}
               source={{
                 uri: props.imageUrl,
               }}
             />
           </Card.Background>
         </Card>
-      </Link>
-      <H3>{props.title}</H3>
-      <Paragraph theme="alt2">Fecha</Paragraph>
-    </>
+        <H3>{props.title}</H3>
+        <Paragraph theme="alt2">Fecha</Paragraph>
+      </>
+    </Link>
   );
 }
