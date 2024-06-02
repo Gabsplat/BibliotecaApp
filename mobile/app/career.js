@@ -17,7 +17,9 @@ const DropdownMenu = ({ title, items }) => {
 
   return (
     <YStack space="$2">
-      <Button onPress={toggleExpand} alignItems="center" justifyContent="space-between">
+      <Button onPress={toggleExpand} alignItems="center" justifyContent="space-between"
+        borderWidth={2}
+        borderStyle='solid'>
         <Text>{title}</Text>
         <Text>{isExpanded ? '▲' : '▼'}</Text>
       </Button>
@@ -72,7 +74,11 @@ const App = () => {
             { title: 'Intro to Computer Architecture 3', status: 'Prestado' },
           ],
         },
-        { title: 'Introducción a la Programación', items: [] },
+        {
+          title: 'Introducción a la Programación', items: [
+            {}
+          ]
+        },
         { title: 'Matemática 1', items: [] },
         { title: 'Bases de datos', items: [] },
       ],
