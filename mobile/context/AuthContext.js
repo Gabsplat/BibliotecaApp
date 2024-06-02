@@ -10,7 +10,7 @@ export function useAuth() {
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
-  useProtectedRoute(user);
+  //useProtectedRoute(user);
 
   const login = (username, password) => {
     console.log(username, password);

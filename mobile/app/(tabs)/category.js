@@ -6,7 +6,7 @@ import { CardCategoria } from "../../components/CardCategoria"
 
 
 
-export default function Test() {
+export default function Category() {
   return (
     <>
       <View

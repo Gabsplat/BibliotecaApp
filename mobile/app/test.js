@@ -19,6 +19,11 @@ export default function Test() {
           <Text>Go to description</Text>
         </Button>
       </Link>
+      <Link replace href="/career" asChild>
+        <Button>
+          <Text>Go to career.js</Text>
+        </Button>
+      </Link>
       <Avatar circular size="$10">
         <Avatar.Image src="http://picsum.photos/200/300" />
         <Avatar.Fallback bc="red" />
