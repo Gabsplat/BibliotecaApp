@@ -12,6 +12,7 @@ import {
   H4,
   H5,
   H6,
+  ScrollView,
 } from "tamagui";
 import { Link, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
@@ -46,62 +47,74 @@ export default function Page() {
       <H3 marginBottom={20} font>
         Libros en Posesión
       </H3>
-      <XStack $sm={{ flexDirection: "column" }}>
-        <CardLibro
-          animation="bouncy"
-          width={150}
-          height={200}
-          scale={0.9}
-          hoverStyle={{ scale: 0.925 }}
-          pressStyle={{ scale: 0.875 }}
-          title="Calculo 1"
-          genre="Académico"
-          imageUrl="https://images.cdn3.buscalibre.com/fit-in/360x360/e1/01/e101ea251ffdeb0637fd85b4e3a70e5e.jpg"
-        />
-        <CardLibro
-          animation="bouncy"
-          width={150}
-          height={200}
-          scale={0.9}
-          hoverStyle={{ scale: 0.925 }}
-          pressStyle={{ scale: 0.875 }}
-          title="PMBOK 7ª Edición"
-          genre="Referencia profesional y técnica"
-          imageUrl="https://opmintegral.com/wp-content/uploads/2021/07/PMBOK-7ma.-Edicion.png"
-        />
-      </XStack>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <XStack $sm={{ flexDirection: "row" }} space>
+          <DemoCard
+            animation="bouncy"
+            width={150}
+            height={200}
+            scale={0.9}
+            hoverStyle={{ scale: 0.925 }}
+            pressStyle={{ scale: 0.875 }}
+            title="Calculo 1"
+            genre="Académico"
+            imageUrl='https://images.cdn3.buscalibre.com/fit-in/360x360/e1/01/e101ea251ffdeb0637fd85b4e3a70e5e.jpg'
+          />
+          <DemoCard
+            animation="bouncy"
+            width={150}
+            height={200}
+            scale={0.9}
+            hoverStyle={{ scale: 0.925 }}
+            pressStyle={{ scale: 0.875 }}
+            title="PMBOK 7ª Edición"
+            genre="Referencia profesional y técnica"
+            imageUrl='https://opmintegral.com/wp-content/uploads/2021/07/PMBOK-7ma.-Edicion.png'
+          />
+          <DemoCard
+            animation="bouncy"
+            width={150}
+            height={200}
+            scale={0.9}
+            hoverStyle={{ scale: 0.925 }}
+            pressStyle={{ scale: 0.875 }}
+            title="Redes de neuronas artificiales"
+            genre="Académico"
+            imageUrl='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvY0QVhsZ8pNfdstM1Qe-QOoZdD3Oui26Leg&s'
+          />
+        </XStack>
+      </ScrollView>
     </View>
   );
 }
 
-function CardLibro(props) {
+function DemoCard(props) {
   return (
-    <Link
-      replace
-      href={`/description?title=${props.title}&link=${props.imageUrl}&genre=${props.genre}`}
-      asChild
-    >
-      <>
-        <Card
-          elevate
-          size="$4"
-          bordered
-          {...props}
-          style={{ overflow: "hidden" }}
-        >
-          <Card.Background>
-            <Image
-              resizeMode="cover"
-              style={{ width: "100%", height: "100%" }}
-              source={{
-                uri: props.imageUrl,
-              }}
-            />
-          </Card.Background>
-        </Card>
-        <H3>{props.title}</H3>
-        <Paragraph theme="alt2">Fecha</Paragraph>
-      </>
-    </Link>
+    <>
+      <XStack flexDirection="column">
+        <Link replace href={`/description?title=${props.title}&link=${props.imageUrl}&genre=${props.genre}`} asChild>
+          <Card elevate size="$4" bordered {...props} style={{ overflow: 'hidden' }}>
+            <Card.Header padded>
+            </Card.Header>
+            <Card.Footer padded flexDirection="column">
+              <H5></H5>
+            </Card.Footer>
+            <Card.Background>
+              <Image
+                resizeMode="cover"
+                style={{ width: '100%', height: '100%' }}
+                source={{
+                  uri: props.imageUrl,
+                }}
+              />
+            </Card.Background>
+          </Card>
+        </Link>
+        <XStack flexDirection="column">
+          <H4 maxWidth={150} flexWrap="wrap">{props.title}</H4>
+          <Paragraph theme="alt2">Fecha</Paragraph>
+        </XStack>
+      </XStack>
+    </>
   );
 }
