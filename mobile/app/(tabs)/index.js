@@ -15,6 +15,7 @@ import {
 } from "tamagui";
 import { Link, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
+// import { Timer } from '@tamagui/lucide-icons'
 
 const uri = "https://young-bananas-show.loca.lt";
 
