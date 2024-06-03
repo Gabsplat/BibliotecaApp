@@ -14,48 +14,13 @@ import {
 import { Link } from "expo-router";
 import Separator from "../../components/Separator";
 
-const yearData = [
-  {
-    year: "1ER AÑO",
-    subjects: [
-      {
-        title: "Arquitectura de las Computadoras",
-        books: [
-          { title: "Intro to Computer Architecture", status: "Disponible" },
-          { title: "Intro to Computer Architecture 2", status: "Prestado" },
-          { title: "Intro to Computer Architecture 3", status: "Prestado" },
-        ],
-      },
-      {
-        title: "Introducción a la Programación",
-        books: [],
-      },
-      { title: "Matemática 1", books: [] },
-      { title: "Bases de datos", books: [] },
-    ],
-  },
-  {
-    year: "2DO AÑO",
-    subjects: [
-      {
-        title: "Introducción a la Programación",
-        books: [
-          { title: "Intro to Computer Architecture", status: "Disponible" },
-          { title: "Intro to Computer Architecture 2", status: "Prestado" },
-          { title: "Intro to Computer Architecture 3", status: "Prestado" },
-        ],
-      },
-      { title: "Matemática 1", books: [] },
-      { title: "Bases de datos", books: [] },
-    ],
-  },
-];
+
 
 const CoursesPage = () => {
   const [yearData, setYearData] = useState([]);
 
   useEffect(() => {
-    fetch(process.env.EXPO_PUBLIC_SERVER_URL + "/biblioteca/carrera/2")
+    fetch(process.env.EXPO_PUBLIC_SERVER_URL + "/biblioteca/carrera/1")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
