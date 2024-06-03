@@ -17,7 +17,8 @@ import { useAuth } from "../../context/AuthContext";
 export default function login() {
   const usuarioRef = useRef(null);
   const passwordRef = useRef(null);
-  const { login } = useAuth();
+  const { login, user } = useAuth();
+  console.log("User:", user);
 
   const [testValue, setTestValue] = useState("1");
 
@@ -69,9 +70,7 @@ export default function login() {
       >
         Logout
       </Button>
-      <YStack width="100%" justifyContent="center">
-        <Text color="red">Test: {testValue}</Text>
-      </YStack>
+      <YStack width="100%" justifyContent="center"></YStack>
 
       <YStack width="100%" alignItems="center">
         <Label>Usuario</Label>
