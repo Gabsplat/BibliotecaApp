@@ -17,7 +17,7 @@ import {
 import { Link, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { Clock10 } from "@tamagui/lucide-icons";
+import { Clock10 } from "lucide-react-native";
 // import { Timer } from '@tamagui/lucide-icons'
 
 const libros = [
@@ -55,6 +55,7 @@ export default function Page() {
     fetch(process.env.EXPO_PUBLIC_SERVER_URL + "/biblioteca/libros/posesion")
       .then((res) => res.json())
       .then((data) => {
+        console.log(librosPosesion);
         setLibrosPosesion(data);
       })
       .catch((err) => console.error(err));
@@ -65,8 +66,8 @@ export default function Page() {
   }, []);
 
   return (
-    <ScrollView paddingLeft={20} paddingRight={20}>
-      <H3 marginBottom={20} font>
+    <ScrollView paddingHorizontal={20}>
+      <H3 marginBottom={15} marginTop={20} fontWeight="medium">
         Libros en posesión
       </H3>
       <XStack gap="$5" flexWrap="wrap">
@@ -94,16 +95,6 @@ export default function Page() {
             );
           })}
       </XStack>
-      <Link replace href="/login" asChild>
-        <Button>
-          <Text>Go to LOGIN</Text>
-        </Button>
-      </Link>
-      <Link replace href="/test" asChild>
-        <Button>
-          <Text>Go to test.js</Text>
-        </Button>
-      </Link>
     </ScrollView>
   );
 }
@@ -120,10 +111,10 @@ function CardLibro(props) {
       >
         <Card.Background>
           <Image
-            resizeMode="cover"
+            objectFit="cover"
             style={{ width: "100%", height: "100%" }}
             source={{
-              uri: props.imageUrl,
+              uri: props.imageUrl || "https://picsum.photos/200/300",
             }}
           />
         </Card.Background>
@@ -131,12 +122,12 @@ function CardLibro(props) {
       <Paragraph size="$5" fontWeight="bold" width={props.width} pt={10}>
         {props.titulo}
       </Paragraph>
-      <View>
-        <Clock10 size="$2" />
+      <XStack alignItems="center" gap={4}>
+        <Clock10 color="red" size={14} />
         <Paragraph color="red" theme="alt2">
-          Devolución: {props.fechaDevolucion.toLocaleDateString()}
+          {props.fechaDevolucion.toLocaleDateString()}
         </Paragraph>
-      </View>
+      </XStack>
     </View>
   );
 }

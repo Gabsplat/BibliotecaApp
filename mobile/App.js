@@ -4,15 +4,22 @@ import { StatusBar } from "expo-status-bar";
 import { Alert, StyleSheet, Text } from "react-native";
 import { TamaguiProvider, View, Button, createTamagui } from "tamagui";
 import { config } from "@tamagui/config/v3";
-import { useFonts } from "expo-font";
+// import { useFonts } from "expo-font";
+import {
+  useFonts,
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_700Bold,
+} from "@expo-google-fonts/inter";
 
 // you usually export this from a tamagui.config.ts files
 const tamaguiConfig = createTamagui(config);
 
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
-    Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
-    InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_700Bold,
   });
 
   console.log(fontError);
@@ -20,14 +27,6 @@ export default function App() {
   if (!fontsLoaded && !fontError) {
     return null;
   }
-
-  // useEffect(() => {
-  //   if (loaded) {
-  //     // can hide splash screen here
-  //   }
-  // }, [loaded])
-
-  console.log("Fonts loaded ", fontsLoaded);
 
   return (
     <TamaguiProvider config={tamaguiConfig}>

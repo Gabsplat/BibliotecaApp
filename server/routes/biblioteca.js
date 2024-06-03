@@ -166,6 +166,82 @@ router.get("/catedra/:id/libros", function (req, res, next) {
   );
 });
 
+// Catedras y libros por carrera
+router.get("/carrera/:id", function (req, res, next) {
+  db.query(
+    `SELECT 
+        c.anio,
+        c.catedra_id,
+        c.nombre_catedra,
+        l.libro_id,
+        l.isbn,
+        l.titulo,
+        l.autor,
+        l.genero,
+        l.descripcion,
+        CASE 
+            WHEN EXISTS (
+                SELECT 1 
+                FROM Libro_Instancia li 
+                LEFT JOIN Prestamo p ON li.instancia_id = p.instancia_id 
+                WHERE li.libro_id = l.libro_id 
+                AND p.fecha_devolucion IS NULL AND p.fecha_prestamo IS NOT NULL
+            ) THEN 0
+            ELSE 1
+        END AS disponibilidad
+    FROM 
+        Carrera_Catedra cc
+    JOIN 
+        Catedra c ON cc.catedra_id = c.catedra_id
+    LEFT JOIN 
+        Catedra_Libro cl ON c.catedra_id = cl.catedra_id
+    LEFT JOIN 
+        Libro l ON cl.libro_id = l.libro_id
+    WHERE 
+        cc.carrera_id = ?
+    ORDER BY 
+        c.anio, c.catedra_id;`,
+    [req.params.id],
+    function (error, results, fields) {
+      if (error) throw error;
+      const formatedResults = formatResults(results);
+      res.json(formatedResults);
+    }
+  );
+});
+
+function formatResults(rows) {
+  const result = [];
+  const yearsMap = new Map();
+  console.log(rows);
+  rows.forEach((row) => {
+    const year = `${row.anio} AÑO`;
+    if (!yearsMap.has(year)) {
+      yearsMap.set(year, { year, subjects: [] });
+      result.push(yearsMap.get(year));
+    }
+
+    const yearEntry = yearsMap.get(year);
+    let subjectEntry = yearEntry.subjects.find(
+      (subject) => subject.title === row.nombre_catedra
+    );
+
+    if (!subjectEntry) {
+      subjectEntry = { title: row.nombre_catedra, books: [] };
+      yearEntry.subjects.push(subjectEntry);
+    }
+
+    if (row.titulo) {
+      subjectEntry.books.push({
+        title: row.titulo,
+        status: row.disponibilidad,
+      });
+    }
+  });
+
+  return result;
+}
+
 // Get instancias
 router.get("/instancias", function (req, res, next) {
   db.query("SELECT * FROM libro_instancia", function (error, results, fields) {

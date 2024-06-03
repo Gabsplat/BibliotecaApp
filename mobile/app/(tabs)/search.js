@@ -1,12 +1,25 @@
-import { View, Text, YStack, Button, Slider, Card, XStack, Paragraph, Image, H1, H2, H3, H4, H5, H6 } from "tamagui";
+import {
+  View,
+  Text,
+  YStack,
+  Button,
+  Slider,
+  Card,
+  XStack,
+  Paragraph,
+  Image,
+  H1,
+  H2,
+  H3,
+  H4,
+  H5,
+  H6,
+} from "tamagui";
 import { Link, useRouter } from "expo-router";
 import { Pressable } from "react-native";
-import { CardCategoria } from "../../components/CardCategoria"
+import { CardCategoria } from "../../components/CardCategoria";
 
-
-
-
-export default function Category() {
+export default function Search() {
   return (
     <>
       <View
@@ -16,7 +29,8 @@ export default function Category() {
         justifyContent="space-evenly"
         flexWrap="wrap"
         height="100%"
-        borderWidth={2}>
+        borderWidth={2}
+      >
         <Link replace href="/test" asChild>
           <Button>
             <Text>Go to test.js</Text>
@@ -37,9 +51,7 @@ export default function Category() {
           <CardCategoria category="categoria5" />
           <CardCategoria category="categoria6" />
         </XStack>
-
       </View>
     </>
   );
 }
-

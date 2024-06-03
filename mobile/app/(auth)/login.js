@@ -1,26 +1,14 @@
 import { useRouter } from "expo-router";
 import React, { useRef, useState } from "react";
-import {
-  View,
-  H4,
-  YStack,
-  Button,
-  Input,
-  Form,
-  XStack,
-  Label,
-  Text,
-  H2,
-} from "tamagui";
+import { YStack, Button, Input, Form, Label, H2 } from "tamagui";
 import { useAuth } from "../../context/AuthContext";
+import { StyleSheet, TextInput } from "react-native";
 
-export default function login() {
+export default function Login() {
   const usuarioRef = useRef(null);
   const passwordRef = useRef(null);
-  const { login, user } = useAuth();
-  console.log("User:", user);
 
-  const [testValue, setTestValue] = useState("1");
+  const { login, user } = useAuth();
 
   const loginAction = () => {
     const usuario = usuarioRef.current.value;
@@ -32,7 +20,6 @@ export default function login() {
       usuario.length === 0 ||
       password.length === 0
     ) {
-      setTestValue("Usuario o contraseña incorrectos");
       return;
     }
 
@@ -51,7 +38,7 @@ export default function login() {
       justifyContent="center"
       alignItems="center"
     >
-      <H2>Login</H2>
+      <H2>Iniciar sesión</H2>
       <Button
         onPress={() => {
           fetch(process.env.EXPO_PUBLIC_SERVER_URL + "/logout", {
@@ -74,8 +61,8 @@ export default function login() {
 
       <YStack width="100%" alignItems="center">
         <Label>Usuario</Label>
-        <Input
-          w="100%"
+        <TextInput
+          style={styles.input}
           defaultValue=""
           placeholder="Pepito..."
           onChangeText={(e) => (usuarioRef.current.value = e)}
@@ -84,8 +71,8 @@ export default function login() {
       </YStack>
       <YStack width="100%" alignItems="center">
         <Label width={90}>Contraseña</Label>
-        <Input
-          w="100%"
+        <TextInput
+          style={styles.input}
           defaultValue=""
           placeholder="Pepito..."
           required
@@ -103,3 +90,14 @@ export default function login() {
     </Form>
   );
 }
+
+const styles = StyleSheet.create({
+  input: {
+    width: "100%",
+    borderColor: "rgba(24,24,24,0.1)",
+    borderWidth: 1,
+    paddingLeft: 12,
+    paddingVertical: 8,
+    borderRadius: 4,
+  },
+});
