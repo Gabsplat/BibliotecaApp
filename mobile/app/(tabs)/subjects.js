@@ -10,17 +10,22 @@ import {
   H1,
   H2,
   ScrollView,
+  SizableText,
 } from "tamagui";
 import { Link } from "expo-router";
 import Separator from "../../components/Separator";
-
-
+import { useAuth } from "../../context/AuthContext";
 
 const CoursesPage = () => {
   const [yearData, setYearData] = useState([]);
+  const [carrera, setCarrera] = useState("");
+
+  const { user } = useAuth();
 
   useEffect(() => {
-    fetch(process.env.EXPO_PUBLIC_SERVER_URL + "/biblioteca/carrera/1")
+    fetch(
+      process.env.EXPO_PUBLIC_SERVER_URL + "/biblioteca/carrera/" + user.carrera
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -28,9 +33,17 @@ const CoursesPage = () => {
       });
   }, []);
 
+  useEffect(() => {
+    fetch(process.env.EXPO_PUBLIC_SERVER_URL + "/carrera/" + user.carrera)
+      .then((res) => res.json())
+      .then((data) => {
+        setCarrera(data.carrera);
+      });
+  });
+
   return (
     <ScrollView gap="$4" paddingHorizontal={20} mt="$5">
-      <H2 fontWeight="bold">Ingeniería en Sistemas de Información</H2>
+      <H2 fontWeight="bold">{carrera}</H2>
       <Separator marginTop={10} marginBottom={40} />
       {yearData &&
         yearData.map((year, index) => (
@@ -39,9 +52,9 @@ const CoursesPage = () => {
             gap="$3"
             mb={index < yearData.length - 1 ? "$6" : 0}
           >
-            <Text fontSize="$4" fontWeight="bold" color="grey">
+            <SizableText fontSize={20} fontWeight="bold" color="grey">
               {year.year}
-            </Text>
+            </SizableText>
             {year.subjects.map((subject, subjIndex) => (
               <DropdownMenu
                 key={subjIndex}
@@ -74,9 +87,9 @@ const DropdownMenu = ({ title, books }) => {
         backgroundColor="rgba(0,0,0,0)"
         p={0}
       >
-        <Text fontSize="$6" fontWeight="bold">
+        <SizableText fontSize={20} fontWeight="bold">
           {title}
-        </Text>
+        </SizableText>
         {isExpanded && <ChevronUp color="black" size={20} />}
         {!isExpanded && <ChevronDown color="black" size={20} />}
       </Button>
@@ -100,16 +113,16 @@ const CourseItem = ({ title, status }) => (
       borderStyle="solid"
       borderColor="rgba(0,0,0,0.2)"
     >
-      <Text>{title}</Text>
+      <SizableText>{title}</SizableText>
       {status === 1 && (
-        <Text>
+        <SizableText>
           <BadgeCheck size={20} color="green" /> Disponible
-        </Text>
+        </SizableText>
       )}
       {status === 0 && (
-        <Text>
+        <SizableText>
           <BadgeCheck size={20} color="red" /> Prestado
-        </Text>
+        </SizableText>
       )}
     </Button>
   </Link>

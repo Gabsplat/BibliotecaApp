@@ -45,6 +45,21 @@ router.get("/libros/:catedra_id", function (req, res, next) {
   );
 });
 
+// Get carrera by ID
+router.get("/carrera/:id", function (req, res, next) {
+  db.query(
+    `SELECT 
+        nombre
+      FROM carrera
+      WHERE carrera_id = ?`,
+    [req.params.id],
+    function (error, results, fields) {
+      if (error) throw error;
+      res.json(results);
+    }
+  );
+});
+
 /*
 
 x getLibrosPosesion() -> solo logged in y user

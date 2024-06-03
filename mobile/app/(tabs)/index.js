@@ -18,34 +18,6 @@ import { Link, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { Clock10 } from "lucide-react-native";
-// import { Timer } from '@tamagui/lucide-icons'
-
-const libros = [
-  {
-    title: "Calculo 1",
-    genre: "Académico",
-    imageUrl:
-      "https://images.cdn3.buscalibre.com/fit-in/360x360/e1/01/e101ea251ffdeb0637fd85b4e3a70e5e.jpg",
-  },
-  {
-    title: "PMBOK 7ª Edición",
-    genre: "Referencia profesional y técnica",
-    imageUrl:
-      "https://opmintegral.com/wp-content/uploads/2021/07/PMBOK-7ma.-Edicion.png",
-  },
-  {
-    title: "PMBOK 7ª Edición",
-    genre: "Referencia profesional y técnica",
-    imageUrl:
-      "https://opmintegral.com/wp-content/uploads/2021/07/PMBOK-7ma.-Edicion.png",
-  },
-  {
-    title: "PMBOK 7ª Edición",
-    genre: "Referencia profesional y técnica",
-    imageUrl:
-      "https://opmintegral.com/wp-content/uploads/2021/07/PMBOK-7ma.-Edicion.png",
-  },
-];
 
 export default function Page() {
   const [librosPosesion, setLibrosPosesion] = useState(null);
@@ -95,6 +67,7 @@ export default function Page() {
             );
           })}
       </XStack>
+      <Link href="/book?libroId=1">Go to libro</Link>
     </ScrollView>
   );
 }
